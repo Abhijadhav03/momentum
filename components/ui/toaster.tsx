@@ -1,6 +1,6 @@
 "use client"
 
-import { Toast } from "@/hooks/use-toast"
+import { Toast } from "@/components/ui/toast-provider"
 import { CheckCircle, XCircle, AlertCircle, Info } from "lucide-react"
 
 interface ToasterProps {
