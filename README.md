@@ -24,8 +24,8 @@ graph TB
     subgraph "Next.js App Router"
         A[Root Layout] --> B[ToastProvider]
         B --> C[Route Groups]
-        C --> D[(auth)/login]
-        C --> E[(dashboard)/board]
+        C --> D[auth login]
+        C --> E[dashboard board]
     end
     
     subgraph "Dashboard Layout"
@@ -42,7 +42,7 @@ graph TB
         G --> M[Delete Confirmation]
     end
     
-    subgraph "Drag & Drop"
+    subgraph "Drag and Drop"
         K --> N[DndContext]
         N --> O[Column]
         N --> P[TaskCard]
@@ -407,12 +407,15 @@ interface ActivityState {
 
 ```mermaid
 graph TD
-    A[ToastProvider] -->|Context| B[useToast Hook]
-    B -->|toast()| C[Add Toast]
-    C -->|setTimeout| D[Auto Dismiss 3s]
-    E[Toaster Component] -->|Consumes| A
-    E -->|Renders| F[Toast UI]
-    F -->|Click| G[Manual Dismiss]
+    A[ToastProvider] --> B[useToast Hook]
+    B --> C[Add Toast]
+    C --> D[Auto Dismiss 3s]
+    E[Toaster Component] --> A
+    E --> F[Toast UI]
+    F --> G[Manual Dismiss]
+    
+    style A fill:#f9f,stroke:#333
+    style F fill:#bbf,stroke:#333
 ```
 
 ### Usage
