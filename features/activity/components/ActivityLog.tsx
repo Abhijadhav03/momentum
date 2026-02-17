@@ -3,14 +3,20 @@
 import { useActivityStore } from "@/store/useActivityStore";
 import { format } from "date-fns";
 
-export function ActivityLog() {
+interface ActivityLogProps {
+    mobile?: boolean;
+}
+
+export function ActivityLog({ mobile }: ActivityLogProps) {
     const { logs } = useActivityStore();
 
     return (
-        <div className="w-64 border-l border-neutral-200 bg-white h-full flex flex-col">
-            <div className="p-3 border-b border-neutral-200 shrink-0">
-                <span className="text-sm font-medium">Activity</span>
-            </div>
+        <div className={`${mobile ? 'w-full' : 'w-64 border-l border-neutral-200'} bg-white h-full flex flex-col`}>
+            {!mobile && (
+                <div className="p-3 border-b border-neutral-200 shrink-0">
+                    <span className="text-sm font-medium">Activity</span>
+                </div>
+            )}
             <div className="flex-1 overflow-y-auto">
                 <div className="p-2 space-y-1">
                     {logs.length === 0 && (

@@ -2,7 +2,9 @@
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/store/useAuthStore"
 import { useToast } from "@/components/ui/toast-provider"
-import { useState } from "react"
+import { useState, useEffect } from "react"
+
+const REMEMBER_ME_KEY = 'momentum-remember-me';
 
 export function LoginForm() {
     const router = useRouter();
@@ -10,8 +12,24 @@ export function LoginForm() {
     const { toast } = useToast();
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [rememberMe, setRememberMe] = useState(false)
     const [error, setError] = useState("")
     const [isLoading, setIsLoading] = useState(false)
+
+    // Load saved credentials on mount
+    useEffect(() => {
+        const saved = localStorage.getItem(REMEMBER_ME_KEY);
+        if (saved) {
+            try {
+                const { email: savedEmail, password: savedPassword } = JSON.parse(saved);
+                setEmail(savedEmail || '');
+                setPassword(savedPassword || '');
+                setRememberMe(true);
+            } catch {
+                localStorage.removeItem(REMEMBER_ME_KEY);
+            }
+        }
+    }, []);
 
     async function onSubmit(e: React.FormEvent) {
         e.preventDefault()
@@ -20,7 +38,18 @@ export function LoginForm() {
 
         await new Promise((resolve) => setTimeout(resolve, 500))
 
-        if (email === "intern@demo.com" && password === "intern123") {
+        // Trim whitespace from inputs
+        const trimmedEmail = email.trim();
+        const trimmedPassword = password.trim();
+
+        if (trimmedEmail === "intern@demo.com" && trimmedPassword === "intern123") {
+            // Save or clear credentials based on remember me
+            if (rememberMe) {
+                localStorage.setItem(REMEMBER_ME_KEY, JSON.stringify({ email: trimmedEmail, password: trimmedPassword }));
+            } else {
+                localStorage.removeItem(REMEMBER_ME_KEY);
+            }
+
             login(email)
             toast({
                 title: "Welcome back!",
@@ -69,7 +98,22 @@ export function LoginForm() {
                             onChange={(e) => setPassword(e.target.value)}
                         className="w-full px-3 py-2 border border-neutral-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent" placeholder="Enter your password" required />
                     </div>
-                     {error && (
+                    
+                    {/* Remember Me Checkbox */}
+                    <div className="flex items-center">
+                        <input
+                            type="checkbox"
+                            id="remember-me"
+                            checked={rememberMe}
+                            onChange={(e) => setRememberMe(e.target.checked)}
+                            className="h-3.5 w-3.5 rounded border-neutral-300 text-neutral-800 focus:ring-0 focus:ring-offset-0 cursor-pointer accent-neutral-800"
+                        />
+                        <label htmlFor="remember-me" className="ml-2 text-xs text-neutral-500 cursor-pointer select-none">
+                            Remember me
+                        </label>
+                    </div>
+
+                    {error && (
                         <p className="text-sm text-red-600">{error}</p>
                     )}
                     <button type="submit" className="w-full px-3 py-2 bg-green-50 border border-green-100 rounded-lg text-sm text-gray-900 hover:bg-green-100 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-colors">

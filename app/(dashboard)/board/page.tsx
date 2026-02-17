@@ -92,22 +92,22 @@ export default function BoardPage() {
             />
 
             {deletingTaskId && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-                    <div className="bg-white rounded-xl w-full max-w-sm mx-4 p-6">
-                        <h2 className="text-lg font-semibold mb-2">Delete task?</h2>
-                        <p className="text-sm text-neutral-500 mb-6">
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+                    <div className="bg-white rounded-xl w-full max-w-sm mx-4 p-5 sm:p-6">
+                        <h2 className="text-base sm:text-lg font-semibold mb-2">Delete task?</h2>
+                        <p className="text-xs sm:text-sm text-neutral-500 mb-5 sm:mb-6">
                             This action cannot be undone.
                         </p>
                         <div className="flex gap-2">
                             <button
                                 onClick={() => setDeletingTaskId(null)}
-                                className="flex-1 px-4 py-2 text-sm border border-neutral-200 rounded-lg hover:bg-neutral-50 transition-colors"
+                                className="flex-1 px-4 py-2.5 text-xs sm:text-sm border border-neutral-200 rounded-lg hover:bg-neutral-50 transition-colors"
                             >
                                 Cancel
                             </button>
                             <button
                                 onClick={confirmDelete}
-                                className="flex-1 px-4 py-2 text-sm bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
+                                className="flex-1 px-4 py-2.5 text-xs sm:text-sm bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
                             >
                                 Delete
                             </button>
@@ -118,28 +118,3 @@ export default function BoardPage() {
         </>
     );
 }
-// "use client";
-// import { useState } from "react";
-// import { BoardCanvas } from "@/features/board/components/BoardCanvas";
-// import { Toolbar } from "@/features/board/components/Toolbar";
-// import { TaskForm } from "@/features/tasks/components/TaskForm";
-
-// export default function BoardPage() {
-//     const [isTaskFormOpen, setIsTaskFormOpen] = useState(false);
-
-//     return (
-//         <>
-//             <Toolbar onAddTask={() => setIsTaskFormOpen(true)} />
-//             <div className="flex-1 overflow-hidden relative">
-//                 <BoardCanvas />
-//             </div>
-//             <TaskForm
-//                 isOpen={isTaskFormOpen}
-//                 onClose={() => setIsTaskFormOpen(false)}
-//                 onSubmit={() => {}}
-//             />
-//         </>
-//     )
-// }
-
-

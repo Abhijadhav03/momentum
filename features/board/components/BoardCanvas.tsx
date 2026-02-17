@@ -178,15 +178,17 @@ export function BoardCanvas() {
             onDragOver={onDragOver}
             onDragEnd={onDragEnd}
         >
-            <div className="grid grid-cols-3 gap-4 h-full p-4 overflow-hidden">
+            {/* Mobile: Horizontal scroll with fixed width columns, Desktop: Grid */}
+            <div className="flex sm:grid sm:grid-cols-3 gap-3 sm:gap-4 h-full p-3 sm:p-4 overflow-x-auto sm:overflow-hidden pb-4 sm:pb-0">
                 {columns.map((col) => (
-                    <Column
-                        key={col.id}
-                        column={col}
-                        tasks={tasksByColumn[col.id]}
-                        onEditTask={handleEditTask}
-                        onDeleteTask={handleDeleteTask}
-                    />
+                    <div key={col.id} className="w-[85vw] sm:w-auto flex-shrink-0 sm:flex-shrink">
+                        <Column
+                            column={col}
+                            tasks={tasksByColumn[col.id]}
+                            onEditTask={handleEditTask}
+                            onDeleteTask={handleDeleteTask}
+                        />
+                    </div>
                 ))}
             </div>
 

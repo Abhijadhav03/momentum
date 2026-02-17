@@ -53,15 +53,15 @@ export function TaskCard({ task, onEdit, onDelete }: TaskCardProps) {
         <div
             ref={setNodeRef}
             style={style}
-            className="group bg-white rounded-lg border border-neutral-200 p-3 hover:shadow-sm transition-shadow cursor-default"
+            className="group bg-white rounded-lg border border-neutral-200 p-2.5 sm:p-3 hover:shadow-sm transition-shadow cursor-default touch-manipulation"
         >
             <div className="flex items-start gap-2">
                 <div
                     {...attributes}
                     {...listeners}
-                    className="cursor-grab text-neutral-300 hover:text-neutral-500 mt-0.5"
+                    className="cursor-grab text-neutral-300 hover:text-neutral-500 mt-0.5 shrink-0"
                 >
-                    <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor" className="w-3 h-3 sm:w-3.5 sm:h-3.5">
                         <circle cx="2" cy="2" r="1.5" />
                         <circle cx="2" cy="6" r="1.5" />
                         <circle cx="2" cy="10" r="1.5" />
@@ -71,41 +71,42 @@ export function TaskCard({ task, onEdit, onDelete }: TaskCardProps) {
                     </svg>
                 </div>
                 <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 mb-1">
-                        <span className="text-sm font-medium truncate">{task.title}</span>
-                        <span className={`px-1.5 py-0.5 text-[10px] font-medium rounded border ${priorityStyles[task.priority]}`}>
+                    <div className="flex items-start gap-1.5 sm:gap-2 mb-1">
+                        <span className="text-xs sm:text-sm font-medium truncate">{task.title}</span>
+                        <span className={`px-1.5 py-0.5 text-[9px] sm:text-[10px] font-medium rounded border shrink-0 ${priorityStyles[task.priority]}`}>
                             {task.priority}
                         </span>
                     </div>
                     {task.description && (
-                        <p className="text-xs text-neutral-500 line-clamp-2 mb-2">
+                        <p className="text-[11px] sm:text-xs text-neutral-500 line-clamp-2 mb-1.5 sm:mb-2">
                             {task.description}
                         </p>
                     )}
                     <div className="flex items-center justify-between">
                         <div className="flex flex-wrap gap-1">
                             {task.tags.slice(0, 2).map((tag) => (
-                                <span key={tag} className="text-[10px] text-neutral-400">
+                                <span key={tag} className="text-[9px] sm:text-[10px] text-neutral-400">
                                     #{tag}
                                 </span>
                             ))}
                         </div>
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-1.5 sm:gap-2">
                             {task.dueDate && (
-                                <span className="text-[10px] text-neutral-400">
+                                <span className="text-[9px] sm:text-[10px] text-neutral-400">
                                     {format(new Date(task.dueDate), "MMM d")}
                                 </span>
                             )}
-                            <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                            {/* Mobile: Always show actions, Desktop: Show on hover */}
+                            <div className="flex gap-1 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity">
                                 <button
                                     onClick={() => onEdit(task)}
-                                    className="text-[10px] text-neutral-400 hover:text-neutral-900"
+                                    className="text-[10px] sm:text-xs text-neutral-500 hover:text-neutral-900 px-1.5 py-0.5 rounded hover:bg-neutral-100"
                                 >
                                     Edit
                                 </button>
                                 <button
                                     onClick={() => onDelete(task.id)}
-                                    className="text-[10px] text-neutral-400 hover:text-red-600"
+                                    className="text-[10px] sm:text-xs text-neutral-500 hover:text-red-600 px-1.5 py-0.5 rounded hover:bg-red-50"
                                 >
                                     Delete
                                 </button>

@@ -49,11 +49,11 @@ export function TaskForm({ isOpen, onClose, onSubmit, initialData }: TaskFormPro
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-            <div className="bg-white rounded-lg w-full max-w-md mx-4 shadow-xl">
-                <div className="px-4 py-3 border-b border-neutral-200 flex items-center justify-between">
-                    <h2 className="font-medium">{initialData ? "Edit task" : "New task"}</h2>
-                    <button onClick={onClose} className="text-neutral-400 hover:text-neutral-600">&times;</button>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+            <div className="bg-white rounded-lg w-full max-w-md max-h-[90vh] overflow-y-auto shadow-xl">
+                <div className="px-4 py-3 border-b border-neutral-200 flex items-center justify-between sticky top-0 bg-white rounded-t-lg">
+                    <h2 className="font-medium text-sm sm:text-base">{initialData ? "Edit task" : "New task"}</h2>
+                    <button onClick={onClose} className="text-neutral-400 hover:text-neutral-600 text-xl leading-none p-1">&times;</button>
                 </div>
 
                 <form onSubmit={handleSubmit} className="p-4 space-y-4">
@@ -116,17 +116,17 @@ export function TaskForm({ isOpen, onClose, onSubmit, initialData }: TaskFormPro
                         />
                     </div>
 
-                    <div className="flex gap-2 pt-2">
+                    <div className="flex gap-2 pt-2 sticky bottom-0 bg-white pb-2">
                         <button
                             type="button"
                             onClick={onClose}
-                            className="flex-1 px-4 py-2 text-sm border border-neutral-200 rounded hover:bg-neutral-50"
+                            className="flex-1 px-4 py-2.5 text-sm border border-neutral-200 rounded hover:bg-neutral-50 transition-colors"
                         >
                             Cancel
                         </button>
                         <button
                             type="submit"
-                            className="flex-1 px-4 py-2 text-sm bg-neutral-900 text-white rounded hover:bg-neutral-700"
+                            className="flex-1 px-4 py-2.5 text-sm bg-neutral-900 text-white rounded hover:bg-neutral-700 transition-colors"
                         >
                             {initialData ? "Save" : "Add"}
                         </button>
