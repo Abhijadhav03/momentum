@@ -1,15 +1,18 @@
 "use client"
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/store/useAuthStore"
+import { useToast } from "@/components/ui/toast-provider"
 import { useState } from "react"
 
 export function LoginForm() {
     const router = useRouter();
     const { login } = useAuthStore();
+    const { toast } = useToast();
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [error, setError] = useState("")
     const [isLoading, setIsLoading] = useState(false)
+
     async function onSubmit(e: React.FormEvent) {
         e.preventDefault()
         setIsLoading(true)
@@ -19,12 +22,22 @@ export function LoginForm() {
 
         if (email === "intern@demo.com" && password === "intern123") {
             login(email)
+            toast({
+                title: "Welcome back!",
+                description: "Successfully logged in to Momentum",
+                variant: "success",
+            })
             setTimeout(() => {
                 router.push("/board")
                 router.refresh()
             }, 100)
         } else {
             setError("Invalid credentials")
+            toast({
+                title: "Login failed",
+                description: "Invalid email or password",
+                variant: "error",
+            })
         }
 
         setIsLoading(false)

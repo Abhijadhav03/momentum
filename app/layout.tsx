@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
+import { ToastProvider } from "@/components/ui/toast-provider";
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
 const instrumentSerif = Geist({ subsets: ["latin"], variable: "--font-serif" });
@@ -24,7 +25,9 @@ export default function RootLayout({
                 instrumentSerif.variable,
                 instrumentMono.variable
             )}>
-                {children}
+                <ToastProvider>
+                    {children}
+                </ToastProvider>
             </body>
         </html>
     );
